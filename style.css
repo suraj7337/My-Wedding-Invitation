@@ -163,6 +163,10 @@ body {
   box-shadow: 0 10px 25px rgba(227, 66, 52, 0.5);
 }
 
+.downward-arrow {
+  bottom: 3px;
+}
+
 /* Calendar Button Specific Styling */
 .btn-calendar {
   background: rgba(255, 251, 240, 0.1);
@@ -204,5 +208,8 @@ body {
   }
   .ganesh-idol {
     width: 30%;
+  }
+  .downward-arrow {
+    bottom: 15px;
   }
 }
