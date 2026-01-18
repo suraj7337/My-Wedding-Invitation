@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -39,7 +39,7 @@
         </div>
 
         <div class="px-4 animate__animated animate__zoomIn">
-          <div class="mb-6 flex justify-center">
+          <div class="mb-6 flex justify-center mt-1">
             <img class="ganesh-idol" src="./images/ganesha_img.svg" />
           </div>
           <p
@@ -50,15 +50,15 @@
           </p>
 
           <p
-            class="heading-font text-sm tracking-widest  mb-2"
+            class="heading-font text-sm tracking-widest mb-2"
             style="color: #d4af37"
           >
             || शुभ विवाह ||
           </p>
 
           <p
-            class=" font-serif tracking-[0.1em] mb-4 text-sm md:text-xl font-bold drop-shadow-lg "
-            style="color: #FFACA0;"
+            class="font-serif tracking-[0.1em] mb-4 text-sm md:text-xl font-bold drop-shadow-lg"
+            style="color: #ffaca0"
           >
             Wedding Invitation
           </p>
@@ -67,24 +67,41 @@
           >
             Suraj <span class="text-white">&</span> Nivedita
           </h1>
-          <div
-            class="h-1 w-64 bg-gradient-to-r from-transparent via-gold-leaf to-transparent mx-auto mb-10"
-          ></div>
 
           <p
-            class="text-white/90 mt-8 font-bold tracking-[0.4em] text-l md:text-xl uppercase bg-black/20 py-2 px-6 rounded-full inline-block backdrop-blur-sm border border-gold-leaf/30"
+            class="text-white/90 mt-1 mb-2 font-bold tracking-[0.4em] text-l md:text-xl uppercase bg-black/20 py-2 px-6 rounded-full inline-block backdrop-blur-sm border border-gold-leaf/30"
           >
             13th March 2026
           </p>
           <p
-            class="font-serif italic text-xl md:text-l text-cream-light tracking-[0.3em] drop-shadow-md"
+            class="font-serif mb-2 italic text-xl md:text-l text-cream-light tracking-[0.3em] drop-shadow-md"
           >
             Begusarai • Bihar
           </p>
+          <!-- Add to Calendar Button -->
+          <button
+            onclick="addToCalendar()"
+            class="btn-calendar px-8 py-3 rounded-full font-royal text-xs md:text-sm tracking-[0.2em] uppercase flex items-center mx-auto mb-3 group"
+          >
+            <svg
+              class="w-5 h-5 mr-3 transition-transform group-hover:rotate-12"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              ></path>
+            </svg>
+            Add to Calendar
+          </button>
         </div>
 
         <div
-          class="absolute bottom-10 left-1/2 -translate-x-1/2 text-gold-leaf opacity-80 animate-bounce"
+          class="absolute bottom-5 left-1/2 -translate-x-1/2 text-gold-leaf opacity-80 animate-bounce"
         >
           <svg
             class="w-10 h-10 mx-auto"
@@ -483,7 +500,7 @@
           0,
           0,
           canvas.width,
-          canvas.height
+          canvas.height,
         );
         grad.addColorStop(0, "#5D0E11");
         grad.addColorStop(0.5, "#E34234");
@@ -509,19 +526,48 @@
             if (entry.isIntersecting) {
               entry.target.classList.add(
                 "animate__animated",
-                "animate__fadeInUp"
+                "animate__fadeInUp",
               );
               entry.target.style.opacity = "1";
             }
           });
         },
-        { threshold: 0.1 }
+        { threshold: 0.1 },
       );
 
       document.querySelectorAll(".reveal").forEach((el) => {
         el.style.opacity = "0";
         observer.observe(el);
       });
+
+      // Calendar Functionality (Google Calendar Version)
+      function addToCalendar() {
+        const event = {
+          title: "The Wedding of Suraj & Nivedita",
+          details:
+            "Join us for the auspicious wedding ceremony of Suraj and Nivedita at the Begusarai.",
+          location:
+            "Banwaripur, Begusarai, Bihar",
+          startTime: "20260312T100000", 
+          endTime: "20260313T230000",
+        }
+
+        // Format for Google Calendar Template Link
+        // Reminders are handled by Google Calendar default settings, but we include it in description to remind user
+        const baseUrl =
+          "https://www.google.com/calendar/render?action=TEMPLATE";
+        const params = new URLSearchParams({
+          text: event.title,
+          dates: `${event.startTime}/${event.endTime}`,
+          details: `${event.details}\n\nNote: Please set a reminder for 1 week before!`,
+          location: event.location,
+          sf: "true",
+          output: "xml",
+        });
+
+        const calendarUrl = `${baseUrl}&${params.toString()}`;
+        window.open(calendarUrl, "_blank");
+      }
     </script>
   </body>
 </html>
