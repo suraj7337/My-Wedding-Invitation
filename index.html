@@ -98,20 +98,12 @@
             </svg>
             Add to Calendar
           </button>
-        </div>
 
-        <div
-          class="downward-arrow absolute  left-1/2 -translate-x-1/2 text-gold-leaf opacity-80 animate-bounce"
-        >
-          <svg
-            class="w-10 h-10 mx-auto"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-          >
-            <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-          </svg>
+          <div id="scroll-indicator" class="scroll-indicator">
+            <span class="dot dot-1"></span>
+            <span class="dot dot-2"></span>
+            <span class="dot dot-3"></span>
+          </div>
         </div>
       </header>
 
@@ -546,11 +538,10 @@
           title: "The Wedding of Suraj & Nivedita",
           details:
             "Join us for the auspicious wedding ceremony of Suraj and Nivedita at the Begusarai.",
-          location:
-            "Banwaripur, Begusarai, Bihar",
-          startTime: "20260312T100000", 
+          location: "Banwaripur, Begusarai, Bihar",
+          startTime: "20260312T100000",
           endTime: "20260313T230000",
-        }
+        };
 
         // Format for Google Calendar Template Link
         // Reminders are handled by Google Calendar default settings, but we include it in description to remind user
@@ -568,6 +559,19 @@
         const calendarUrl = `${baseUrl}&${params.toString()}`;
         window.open(calendarUrl, "_blank");
       }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const indicator = document.getElementById("scroll-indicator");
+        if (!indicator) return;
+
+        const hideIndicator = () => {
+          indicator.style.opacity = "0";
+          indicator.style.pointerEvents = "none";
+          window.removeEventListener("scroll", hideIndicator);
+        };
+
+        window.addEventListener("scroll", hideIndicator, { passive: true });
+      });
     </script>
   </body>
 </html>
